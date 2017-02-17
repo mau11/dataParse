@@ -18,7 +18,13 @@ connection.connect(function(err){
 // Create table, challenge if not created already
 var makeTable = "CREATE TABLE IF NOT EXISTS questions (id int(11) NOT NULL AUTO_INCREMENT, question varchar(50) UNIQUE, answer varchar(10), distractors varchar (50), PRIMARY KEY (id)) ENGINE=InnoDB  DEFAULT CHARSET=utf8";
 
-connection.query(makeTable, function(){});
+connection.query(makeTable, function(err, data){
+  if(err){
+    throw err;
+  } else{
+    console.log('Question table exists');
+  }
+});
 
 module.exports = {
   connection: connection,

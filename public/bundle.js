@@ -9546,9 +9546,19 @@ var Questions = function (_React$Component) {
   }
 
   _createClass(Questions, [{
-    key: 'componentWillMount',
-    value: function componentWillMount() {
+    key: 'viewAll',
+    value: function viewAll() {
       this.getQuestions();
+    }
+  }, {
+    key: 'addNew',
+    value: function addNew() {}
+  }, {
+    key: 'edit',
+    value: function edit(e) {
+      e.preventDefault();
+      var questId = e.target.id;
+      console.log(questId);
     }
 
     // Request questions from server
@@ -9567,26 +9577,45 @@ var Questions = function (_React$Component) {
   }, {
     key: 'render',
     value: function render() {
+      var _this3 = this;
 
       return _react2.default.createElement(
         'div',
-        null,
-        'Rendered here :',
+        { className: 'container' },
         _react2.default.createElement(
-          'ul',
+          'button',
+          { onClick: this.viewAll.bind(this) },
+          'View All'
+        ),
+        _react2.default.createElement(
+          'button',
+          { onClick: this.addNew.bind(this) },
+          'Add Question'
+        ),
+        _react2.default.createElement(
+          'div',
           null,
           this.state.questions.map(function (item) {
             return _react2.default.createElement(
-              'li',
+              'div',
               { key: item.id },
               _react2.default.createElement(
-                'span',
-                null,
+                'div',
+                { className: 'col-md-9' },
                 item.question,
                 ' ',
                 item.answer,
                 ' ',
                 item.distractors
+              ),
+              _react2.default.createElement(
+                'div',
+                { className: 'col-md-3' },
+                _react2.default.createElement(
+                  'button',
+                  { onClick: _this3.edit.bind(_this3), id: item.id },
+                  'Edit'
+                )
               )
             );
           })
