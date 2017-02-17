@@ -9556,9 +9556,12 @@ var Questions = function (_React$Component) {
   }, {
     key: 'getQuestions',
     value: function getQuestions() {
-      console.log('HERE');
-      fetch('api/questions', { method: 'GET' }).then(function (response) {
-        return console.log(response.json());
+      var _this2 = this;
+
+      return fetch('api/questions', { method: 'GET' }).then(function (response) {
+        return response.json();
+      }).then(function (list) {
+        return _this2.setState({ questions: list });
       });
     }
   }, {
@@ -9569,7 +9572,25 @@ var Questions = function (_React$Component) {
         'div',
         null,
         'Rendered here :',
-        this.state.questions
+        _react2.default.createElement(
+          'ul',
+          null,
+          this.state.questions.map(function (item) {
+            return _react2.default.createElement(
+              'li',
+              { key: item.id },
+              _react2.default.createElement(
+                'span',
+                null,
+                item.question,
+                ' ',
+                item.answer,
+                ' ',
+                item.distractors
+              )
+            );
+          })
+        )
       );
     }
   }]);

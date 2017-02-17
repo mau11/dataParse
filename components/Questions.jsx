@@ -14,16 +14,21 @@ export default class Questions extends React.Component {
 
   // Request questions from server
   getQuestions() {
-    console.log('HERE');
-    fetch('api/questions', {method: 'GET'})
-      .then((response) => console.log(response.json()));
+    return fetch('api/questions', {method: 'GET'})
+      .then((response) => response.json())
+      .then(list => this.setState({questions: list}));
   }
 
   render() {
 
     return (
       <div>Rendered here :
-        {this.state.questions}
+        <ul>
+        {this.state.questions.map(item =>
+          <li key={item.id}>
+            <span>{item.question} {item.answer} {item.distractors}</span>
+          </li>)}
+        </ul>
       </div>
     )
   }
